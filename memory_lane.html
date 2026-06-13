@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memory Lane - Permintaan Maaf Dariku</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap");
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins","Segoe UI",sans-serif}
+body{background:linear-gradient(135deg,#cce7ff 0%,#d6eeff 50%,#e4f4ff 100%);min-height:100vh;overflow-x:hidden;position:relative}
+.confetti{position:fixed;width:100%;height:100%;z-index:-1;pointer-events:none}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-20px;opacity:0}
+.scrapbook-bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%2390c8f0' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");opacity:0.7;z-index:-1}
+.memory-lane-container{max-width:1200px;margin:0 auto;padding:2rem}
+.header{text-align:center;margin-bottom:3rem;animation:float 3s ease-in-out infinite}
+.header h1{font-size:3.2rem;color:#1565c0;margin-bottom:1rem;font-family:"Dancing Script",cursive;text-shadow:3px 3px 0px rgba(144,202,249,0.6);animation:heartbeat 1.8s ease-in-out infinite}
+.header p{font-size:1.1rem;color:#0d47a1;max-width:700px;margin:0 auto;line-height:1.7;background:rgba(255,255,255,0.55);padding:1rem 1.5rem;border-radius:20px;box-shadow:0 5px 15px rgba(21,101,192,0.15);font-style:italic}
+.gallery-container{position:relative;margin:2rem 0}
+.slideshow-controls{display:flex;justify-content:center;margin-bottom:2rem;opacity:0;animation:fadeIn 1s forwards 1s}
+.btn{padding:.8rem 1.5rem;margin:0 .5rem;background:linear-gradient(45deg,#1976d2,#42a5f5);color:white;border:none;border-radius:25px;cursor:pointer;font-size:1rem;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(25,118,210,0.4)}
+.btn:hover{background:linear-gradient(45deg,#42a5f5,#1976d2);transform:translateY(-2px) scale(1.05);box-shadow:0 6px 20px rgba(25,118,210,0.6)}
+.gallery{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:1.5rem;padding:1.5rem 0;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#42a5f5 #cce7ff}
+.gallery::-webkit-scrollbar{height:8px}
+.gallery::-webkit-scrollbar-track{background:#cce7ff;border-radius:10px}
+.gallery::-webkit-scrollbar-thumb{background:#42a5f5;border-radius:10px}
+.memory-card{flex:0 0 auto;width:300px;height:400px;position:relative;border-radius:20px;overflow:hidden;box-shadow:0 10px 25px rgba(25,118,210,0.25);transform:translateY(50px) rotate(var(--rotate,0deg));opacity:0;transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275);border:8px solid white}
+.memory-card.visible{transform:translateY(0) rotate(var(--rotate,0deg));opacity:1}
+.memory-img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.memory-card:hover .memory-img{transform:scale(1.08)}
+.memory-caption{position:absolute;bottom:-100%;left:0;width:100%;background:rgba(13,71,161,0.88);color:white;padding:1.2rem;transition:bottom 0.4s cubic-bezier(0.68,-0.55,0.27,1.55);border-bottom-left-radius:15px;border-bottom-right-radius:15px;font-size:1rem;line-height:1.5;font-style:italic;font-family:"Dancing Script",cursive;font-size:1.15rem;text-shadow:1px 1px 2px rgba(0,0,0,0.3)}
+.memory-card:hover .memory-caption{bottom:0}
+.card-tape{position:absolute;width:100px;height:35px;background:rgba(200,225,255,0.85);top:-15px;left:50%;transform:translateX(-50%) rotate(var(--rotate,2deg));z-index:2;box-shadow:0 0 10px rgba(25,118,210,0.15)}
+.card-sticker{position:absolute;width:40px;height:40px;z-index:3;bottom:10px;right:10px;transform:rotate(15deg);filter:drop-shadow(0 2px 3px rgba(0,0,0,0.2));animation:bounce 2s infinite}
+.navigation-buttons{display:flex;justify-content:space-between;margin-top:3rem}
+#nextButton{background:linear-gradient(45deg,#0d47a1,#1976d2);font-size:1.1rem;padding:1rem 2rem;position:relative;overflow:hidden;animation:pulse 2s infinite}
+#nextButton::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:rgba(255,255,255,0.15);transform:rotate(45deg);animation:shine 3s infinite}
+#nextButton:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 8px 25px rgba(13,71,161,0.5)}
+#backButton{background:linear-gradient(45deg,#0288d1,#4fc3f7)}
+.sticker{position:absolute;width:60px;height:60px;z-index:5;filter:drop-shadow(0 3px 5px rgba(0,0,0,0.25));pointer-events:none;animation:float 3s ease-in-out infinite}
+.sticker1{top:10%;left:5%;animation-delay:0.2s}
+.sticker2{bottom:15%;right:5%;animation-delay:0.5s}
+.sticker3{bottom:30%;left:10%;animation-delay:0.8s}
+.sticker4{top:20%;right:10%;animation-delay:1.2s}
+.balloon{position:fixed;width:55px;height:65px;border-radius:50%;box-shadow:inset -5px -5px 0 rgba(0,0,0,0.08);animation:floatUp 15s linear infinite;z-index:-1}
+.balloon::before{content:"";position:absolute;width:2px;height:80px;background:rgba(0,0,0,0.15);top:100%;left:50%}
+@keyframes floatUp{0%{transform:translateY(100vh) rotate(0deg);opacity:1}100%{transform:translateY(-100vh) rotate(360deg);opacity:0}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(5deg)}}
+@keyframes bounce{0%,100%{transform:scale(1) rotate(15deg)}50%{transform:scale(1.2) rotate(20deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%{transform:scale(1);box-shadow:0 4px 15px rgba(25,118,210,0.4)}50%{transform:scale(1.05);box-shadow:0 10px 25px rgba(25,118,210,0.6)}100%{transform:scale(1);box-shadow:0 4px 15px rgba(25,118,210,0.4)}}
+@keyframes shine{0%{left:-100%;opacity:0}20%{left:100%;opacity:0.5}100%{left:100%;opacity:0}}
+@keyframes heartbeat{0%{transform:scale(1)}25%{transform:scale(1.05)}50%{transform:scale(1)}75%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes floatDown{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+@media(max-width:768px){.header h1{font-size:2.4rem}.memory-card{width:250px;height:330px}.gallery{gap:1rem}.sticker{width:45px;height:45px}}
+@media(max-width:480px){.header h1{font-size:1.9rem}.header p{font-size:.95rem}.memory-card{width:220px;height:300px}.navigation-buttons{flex-direction:column;gap:1rem;align-items:center}.btn{width:100%;max-width:220px}}
+</style>
+</head>
+<body>
+<div class="scrapbook-bg"></div>
+<div class="confetti" id="confetti-container"></div>
+
+<!-- Balloons biru -->
+<div class="balloon" style="left:10%;background:radial-gradient(circle at 30% 30%,#64b5f6,#1565c0);animation-duration:18s"></div>
+<div class="balloon" style="left:22%;background:radial-gradient(circle at 30% 30%,#90caf9,#1976d2);animation-duration:15s;animation-delay:2s"></div>
+<div class="balloon" style="left:70%;background:radial-gradient(circle at 30% 30%,#bbdefb,#0d47a1);animation-duration:20s;animation-delay:5s"></div>
+<div class="balloon" style="left:85%;background:radial-gradient(circle at 30% 30%,#4fc3f7,#01579b);animation-duration:17s;animation-delay:1s"></div>
+<div class="balloon" style="left:45%;background:radial-gradient(circle at 30% 30%,#b3e5fc,#0288d1);animation-duration:22s;animation-delay:7s"></div>
+
+<!-- Sticker dekoratif -->
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231976d2' /%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' text-anchor='middle' fill='white'%3E💙%3C/text%3E%3C/svg%3E" class="sticker sticker1" alt="sticker"/>
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230288d1' /%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' text-anchor='middle' fill='white'%3E🕊️%3C/text%3E%3C/svg%3E" class="sticker sticker2" alt="sticker"/>
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230d47a1' /%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' text-anchor='middle' fill='white'%3E🌸%3C/text%3E%3C/svg%3E" class="sticker sticker3" alt="sticker"/>
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2342a5f5' /%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' text-anchor='middle' fill='white'%3E✨%3C/text%3E%3C/svg%3E" class="sticker sticker4" alt="sticker"/>
+
+<div class="memory-lane-container">
+  <div class="header">
+    <h1>Maafkan Aku, Sayangku</h1>
+    <p>
+      Setiap foto ini menyimpan sepotong hatiku yang selalu milikmu. Aku tahu aku salah, dan kata-kata ini hadir dari tempat paling dalam jiwaku — aku sungguh minta maaf. 💙
+    </p>
+  </div>
+
+  <div class="slideshow-controls">
+    <button id="startSlideshow" class="btn"><span>▶ Putar Slideshow</span></button>
+    <button id="pauseSlideshow" class="btn" style="display:none"><span>⏸ Pause</span></button>
+  </div>
+
+  <div class="gallery-container">
+    <div class="gallery" id="memoryGallery"></div>
+  </div>
+
+  <div class="navigation-buttons">
+    <button id="backButton" class="btn"><span>← Kembali</span></button>
+    <button id="nextButton" class="btn"><span>💙 Buka Pesan Untukmu 💙</span></button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script>
+const memories = [
+  {
+    image:"1.jpeg",
+    caption:"Sebelum kau hadir, hidupku seperti langit tanpa bintang — kosong dan sepi. Kaulah cahaya yang mengisi setiap sudutnya.",
+    rotationAngle:-2,
+    emoji:"💙"
+  },
+  {
+    image:"2.jpeg",
+    caption:"Aku ingat pertama kali melihatmu tersenyum. Saat itu aku tahu, ada sesuatu yang berbeda — ada kamu, dan itu segalanya.",
+    rotationAngle:3,
+    emoji:"🌊"
+  },
+  {
+    image:"3.jpeg",
+    caption:"Maafkan aku karena pernah membuatmu menangis. Air matamu adalah luka terbesar yang pernah kurasa. Aku tidak ingin itu terulang.",
+    rotationAngle:-1,
+    emoji:"🕊️"
+  },
+  {
+    image:"4.jpeg",
+    caption:"Di setiap detak jantungku, ada namamu. Mungkin aku tak selalu sempurna, tapi cintaku padamu tidak pernah goyah.",
+    rotationAngle:2,
+    emoji:"🌸"
+  },
+  {
+    image:"5.jpeg",
+    caption:"Aku minta maaf atas kata-kata yang pernah menyakitimu. Lidahku salah, tapi hatiku tak pernah berpaling darimu.",
+    rotationAngle:-3,
+    emoji:"✨"
+  },
+  {
+    image:"7.jpeg",
+    caption:"Bersamamu, bahkan momen paling biasa pun terasa istimewa. Kau adalah alasan aku ingin menjadi versi terbaik dari diriku.",
+    rotationAngle:1,
+    emoji:"💎"
+  },
+  {
+    image:"8.jpeg",
+    caption:"Aku tahu maaf saja tidak cukup. Aku ingin membuktikannya lewat setiap tindakan, setiap hari, seumur hidupku.",
+    rotationAngle:-2,
+    emoji:"🌙"
+  },
+  {
+    image:"9.jpeg",
+    caption:"Kamu bukan sekadar seseorang yang kucintai — kamu adalah rumahku. Dan aku rindu pulang kepadamu.",
+    rotationAngle:2,
+    emoji:"🏡"
+  },
+  {
+    image:"10.jpeg",
+    caption:"Setiap malam aku menatap langit dan bertanya apakah kamu baik-baik saja. Aku sangat peduli padamu, lebih dari yang bisa kuungkapkan.",
+    rotationAngle:-1,
+    emoji:"🌟"
+  },
+  {
+    image:"11.jpeg",
+    caption:"Tolong beri aku kesempatan untuk memperbaiki segalanya. Aku berjanji — kali ini aku akan hadir sepenuhnya, untukmu, selamanya.",
+    rotationAngle:3,
+    emoji:"💙"
+  }
+];
+
+function createConfetti(){
+  const c=document.getElementById("confetti-container");
+  const colors=["#42a5f5","#1976d2","#90caf9","#0d47a1","#4fc3f7","#bbdefb"];
+  for(let i=0;i<80;i++){
+    const p=document.createElement("div");
+    p.className="confetti-piece";
+    p.style.left=Math.random()*100+"vw";
+    p.style.width=Math.random()*15+5+"px";
+    p.style.height=Math.random()*15+5+"px";
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.borderRadius=Math.random()>.5?"50%":"0";
+    p.style.transform=`rotate(${Math.random()*360}deg)`;
+    const dur=Math.random()*3+3;
+    const delay=Math.random()*5;
+    p.style.animation=`floatDown ${dur}s ease-in ${delay}s infinite`;
+    p.style.opacity=Math.random();
+    c.appendChild(p);
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  createConfetti();
+  const gallery=document.getElementById("memoryGallery");
+  const startBtn=document.getElementById("startSlideshow");
+  const pauseBtn=document.getElementById("pauseSlideshow");
+  let slideshowInterval,currentSlide=0;
+
+  memories.forEach((m,i)=>{
+    const card=document.createElement("div");
+    card.className="memory-card";
+    card.style.setProperty("--rotate",`${m.rotationAngle}deg`);
+
+    const tape=document.createElement("div");
+    tape.className="card-tape";
+    tape.style.setProperty("--rotate",`${m.rotationAngle*2}deg`);
+
+    const img=document.createElement("img");
+    img.className="memory-img";
+    img.src=m.image;
+    img.alt=`Kenangan ${i+1}`;
+
+    const cap=document.createElement("div");
+    cap.className="memory-caption";
+    cap.textContent=m.caption;
+
+    const stk=document.createElement("div");
+    stk.className="card-sticker";
+    stk.innerHTML=`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#1976d2"/><text x="50" y="65" font-family="Arial" font-size="40" text-anchor="middle" fill="white">${m.emoji}</text></svg>`;
+
+    card.appendChild(tape);
+    card.appendChild(img);
+    card.appendChild(cap);
+    card.appendChild(stk);
+    gallery.appendChild(card);
+  });
+
+  document.querySelector(".slideshow-controls").style.opacity="1";
+
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}
+    });
+  },{threshold:0.3});
+
+  document.querySelectorAll(".memory-card").forEach((card,i)=>{
+    observer.observe(card);
+    setTimeout(()=>card.classList.add("visible"),500+i*150);
+  });
+
+  function startSlideshow(){
+    startBtn.style.display="none";
+    pauseBtn.style.display="flex";
+    if(slideshowInterval)clearInterval(slideshowInterval);
+    slideshowInterval=setInterval(()=>{
+      currentSlide=(currentSlide+1)%memories.length;
+      const cards=gallery.querySelectorAll(".memory-card");
+      if(cards&&cards[currentSlide]){
+        const cr=cards[currentSlide].getBoundingClientRect();
+        const gr=gallery.getBoundingClientRect();
+        gallery.scrollTo({left:cards[currentSlide].offsetLeft-gr.width/2+cr.width/2,behavior:"smooth"});
+      }
+    },2500);
+  }
+
+  function pauseSlideshow(){
+    pauseBtn.style.display="none";
+    startBtn.style.display="flex";
+    if(slideshowInterval){clearInterval(slideshowInterval);slideshowInterval=null}
+  }
+
+  startBtn.addEventListener("click",startSlideshow);
+  pauseBtn.addEventListener("click",pauseSlideshow);
+  document.getElementById("backButton").addEventListener("click",()=>window.location.href="index.html");
+  document.getElementById("nextButton").addEventListener("click",()=>window.location.href="letter.html");
+
+  gsap.from(".header",{duration:1,y:-50,opacity:0,ease:"back.out(1.7)"});
+  gsap.from(".navigation-buttons",{duration:1,y:50,opacity:0,delay:0.5,ease:"power3.out"});
+
+  gsap.utils.toArray(".sticker").forEach(s=>{
+    gsap.to(s,{rotation:"random(-20,20)",duration:"random(2,4)",repeat:-1,yoyo:true,ease:"sine.inOut"});
+  });
+
+  document.querySelectorAll(".memory-card").forEach(card=>{
+    card.addEventListener("mouseenter",function(){
+      gsap.to(this,{scale:1.05,boxShadow:"0 15px 35px rgba(25,118,210,0.45)",duration:0.3});
+    });
+    card.addEventListener("mouseleave",function(){
+      gsap.to(this,{scale:1,boxShadow:"0 10px 25px rgba(25,118,210,0.25)",duration:0.3});
+    });
+  });
+
+  setTimeout(()=>{
+    document.querySelector(".gallery-container").scrollIntoView({behavior:"smooth",block:"center"});
+  },2000);
+});
+</script>
+</body>
+</html>

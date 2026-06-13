@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Untuk Esaa Sayang 💙</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #BFE9FF 40%, #EAF8FF 100%);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        /* AWAN */
+        .cloud {
+            position: absolute;
+            font-size: 70px;
+            opacity: .35;
+            animation: cloudMove linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cloudMove {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(calc(100vw + 300px)); }
+        }
+
+        /* CARD */
+        .card {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, .65);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, .8);
+            border-radius: 30px;
+            padding: 45px 35px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+            position: relative;
+            z-index: 10;
+            animation: fadeUp 1.2s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+            animation: float 3s ease infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #3B82C4;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #4B6477;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* SURAT */
+        .message {
+            background: rgba(255, 255, 255, .55);
+            padding: 25px;
+            border-radius: 20px;
+            line-height: 2;
+            font-size: 1rem;
+            color: #4A5568;
+            margin-bottom: 25px;
+        }
+
+        /* BUTTON */
+        .btn {
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #3B82C4, #63B3ED);
+            transition: .3s;
+            box-shadow: 0 10px 25px rgba(59, 130, 196, .3);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(59, 130, 196, .4);
+        }
+
+        /* FLOATING EMOJI */
+        .floating {
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            opacity: .8;
+        }
+
+        /* MOBILE */
+        @media(max-width: 768px) {
+            body { padding: 15px; align-items: flex-start; padding-top: 25px; }
+            .card { padding: 25px 18px; border-radius: 20px; }
+            h1 { font-size: 2.8rem; }
+            .subtitle { font-size: .9rem; }
+            .message { font-size: .9rem; padding: 18px; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cloud" style="top:10%;animation-duration:40s;">☁️</div>
+    <div class="cloud" style="top:25%;animation-duration:55s;">☁️</div>
+    <div class="cloud" style="top:70%;animation-duration:45s;">☁️</div>
+    <div class="cloud" style="top:85%;animation-duration:60s;">☁️</div>
+
+    <div class="card">
+        <div class="icon">🙏</div>
+        <h1>Maafin Aku Ya...</h1>
+        <div class="subtitle">
+            Untuk Esaa Sayang 💙<br>
+            Aku tahu aku pernah membuatmu kecewa,
+            dan halaman sederhana ini aku buat untuk menyampaikan sesuatu dari hati.
+        </div>
+        <div class="message">
+            Mungkin ada kata-kata dan sikapku yang membuatmu sedih.
+            Aku sadar aku tidak selalu menjadi orang yang kamu harapkan.
+            Tapi percayalah, aku tidak pernah berniat menyakitimu.
+            <br><br>
+            Terima kasih karena sudah hadir dalam hidupku.
+            Terima kasih karena sudah bertahan sejauh ini.
+            Dan jika aku diberi kesempatan, aku ingin memperbaiki semuanya.
+            <br><br>
+            💙 Dari Marr, untuk Esaa Sayang.
+        </div>
+        <button class="btn" onclick="showMessage()">
+            Lanjutkan 💌
+        </button>
+    </div>
+
+    <script>
+        function showMessage() {
+            window.location.href = "memory_lane.html";
+        }
+
+        const emojis = ['💙', '☁️', '✨', '🌤️', '🕊️', '🤍'];
+
+        function createFloating() {
+            const el = document.createElement('div');
+            el.className = 'floating';
+            el.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '-40px';
+            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            document.body.appendChild(el);
+            el.animate([
+                { transform: 'translateY(0)', opacity: 1 },
+                { transform: 'translateY(110vh)', opacity: 0 }
+            ], {
+                duration: 8000,
+                iterations: 1
+            });
+            setTimeout(() => { el.remove(); }, 8000);
+        }
+        setInterval(createFloating, 700);
+    </script>
+</body>
+</html>
